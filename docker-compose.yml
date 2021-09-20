@@ -1,0 +1,40 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bootdb
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+    networks:
+      - stock-quote-network
+
+  stock-manager:
+    image: lucasvilela/stock-manager
+    ports:
+      - "8080:8080"
+    networks:
+      - stock-quote-network
+
+  stock-quote-manager:
+    build: 
+      dockerfile: ./Dockerfile
+      context: .
+    image: pedro/stock-quote-manager
+    container_name: stock-quote-manager-container
+    ports:
+      - "8081:8081"
+    networks: 
+      - stock-quote-network
+    environment: 
+      WAIT_HOSTS: mysql:3306 
+      SPRING_PROFILES_ACTIVE: prod 
+    depends_on: 
+      - "mysql"
+      - "stock-manager"
+
+networks:
+  stock-quote-network:
+    driver: bridge
