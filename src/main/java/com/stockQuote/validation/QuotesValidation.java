@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.stockQuote.controller.StockController;
 import com.stockQuote.validation.constraint.QuoteIsValid;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +18,6 @@ public class QuotesValidation implements ConstraintValidator<QuoteIsValid, Map<S
 	@Override
 	public void initialize(QuoteIsValid quotes) {
 	}
-
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(StockController.class);
 
 	@Override
 	public boolean isValid(Map<String, String> quotes, ConstraintValidatorContext context) {

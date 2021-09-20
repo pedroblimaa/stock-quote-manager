@@ -25,8 +25,6 @@ import com.stockQuote.model.Quote;
 import com.stockQuote.repository.QuoteRepository;
 import com.stockQuote.service.QuoteService;
 
-import javassist.NotFoundException;
-
 @RestController
 @RequestMapping("/stock-quote")
 public class StockQuoteController {
@@ -70,7 +68,8 @@ public class StockQuoteController {
 		Boolean stockIsValid = quoteService.verifyStockId(form.getStockId());
 
 		if (!stockIsValid) {
-			throw new NotFoundException("Stock not found.");
+			return new ResponseEntity<ErrorHandleDto>(new ErrorHandleDto("Stock not found", 404),
+					HttpStatus.BAD_REQUEST);
 		}
 
 		Boolean quotesValid = quoteService.verifyQuote(form);

@@ -115,8 +115,6 @@ class StockQuoteControllerTest {
 	@Test
 	void testShouldNotDetailAStockBecouseIdIsInvalid() throws Exception {
 
-		List<Quote> quotes = new ArrayList<>();
-
 		Mockito.when(quoteRepo.getByStockId(Mockito.anyString())).thenReturn(new ArrayList<>());
 
 		this.mockMvc.perform(MockMvcRequestBuilders.get(uri + "/petr5"))
